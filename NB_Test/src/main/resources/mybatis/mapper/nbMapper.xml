@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.example.mapper.NoticeTestMapper">
+	
+	<select id="noticeSelectList" resultType="com.example.dto.NTSelectListVO">
+		<![CDATA[
+			SELECT
+			    tbl.*
+			FROM(
+			         SELECT 
+		                nt.IDX as idx
+						nt.labelType 
+		                ,nt.TITLE
+		                ,nt.CONTENTS as content
+		                ,nt.START_DT as startDt
+		                ,nt.END_DT as endDt
+		                ,nt.reg_user as registor
+		                ,TO_CHAR(nt.reg_dt,'YYYYMMDD') as regDt
+		                ,TO_CHAR(nt.reg_tm,'hh24miss') as regTm
+		            FROM            
+		            NB_TEST nt
+			        WHERE 1=1
+			        AND STATUS = 'Y'
+			)tbl
+		 ]]>
+		 ORDER BY IDX DESC
+	</select>
+	
+	<select id="noticeSelectOne" resultType="com.example.dto.NTSelectOneVO">
+		<![CDATA[
+		SELECT
+			    TBL.*
+			FROM(
+			         SELECT 
+		                nt.IDX as idx
+		                ,nt. labelType
+		                ,nt.TITLE
+		                ,nt.CONTENTS as content
+		                ,nt.START_DT as startDt
+		                ,nt.END_DT as endDt
+		                ,nt.reg_user as registor
+		                ,TO_CHAR(nt.reg_dt,'YYYYMMDD') as regDt
+		                ,TO_CHAR(nt.reg_tm,'hh24miss') as regTm
+		            FROM            
+		            NB_TEST nt
+			        WHERE 1=1
+			        AND A.STATUS = 'Y'
+			        AND A.CUSTOMER_ID = #{customerId}
+			)TBL  
+			WHERE 1=1 
+			AND idx = #{idx}
+			]]>
+	</select>	
+	
+	<insert id="insertOne" parameterType="com.example.dto.NTInsertVO">
+    	<![CDATA[
+    	INSERT INTO TB_NOTICE(
+			,title
+			,contents
+			,labelType
+			,start_dt
+			,start_tm
+			,end_dt
+			,end_tm
+			,reg_dt
+			,reg_tm
+			,reg_user
+		)VALUES
+		(
+			,#{title}
+			,#{contents}
+			,#{labelType}
+			,#{startDt}
+			,'000000'
+			,#{endDt}
+			,'000000'
+			,TO_CHAR(SYSDATE, 'YYYYMMDD')
+			,TO_CHAR(SYSDATE, 'HH24MISS')
+			,#{reg_user}
+		)
+    	]]>
+    </insert>
+	
+	<update id="updateOne">
+    <![CDATA[
+    	UPDATE 
+    		NB_TEST
+    	SET
+    		labelType = #{labelType}
+    		,title =  #{title}
+			,contents = #{contents}
+			,start_dt = #{startDt}
+			,end_dt = #{endDt}
+    		,udt_dt = TO_CHAR(SYSDATE, 'YYYYMMDD')
+			,udt_tm = TO_CHAR(SYSDATE, 'HH24MISS')
+			,udt_user = #{udt_user}
+    	WHERE 1=1
+    	AND IDX = #{idx}
+    	
+    	
+    	
+    ]]>
+    </update>
+	
+	<update id="deleteOne" parameterType="com.example.dto.NTDeleteVO">
+    <![CDATA[
+    	UPDATE 
+    		TB_NOTICE
+    	SET
+    		STATUS = 'N'
+    		,udt_dt = TO_CHAR(SYSDATE, 'YYYYMMDD')
+			,udt_tm = TO_CHAR(SYSDATE, 'HH24MISS')
+			,udt_user = #{udt_user}
+    		
+    	WHERE 1=1
+    	AND IDX = ${idx}
+    	
+    ]]>
+    </update>
+</mapper>
