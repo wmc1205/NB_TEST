@@ -1,6 +1,6 @@
 package com.example.dto;
 
-import lombok.Builder;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,26 +11,18 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class NTInsertVO {
-	private String labelType;
+	
 	private String title;
 	private String contents;
-	private String startDt;
-	private String endDt;
-	private String registor;
-	private String customerId;
+	private String status;
+	private String labelType;
+	private String importance;
+	private String start_dt,start_tm;
+	private String end_dt,end_tm;
+	private String reg_dt;
+	private String reg_tm;
+	private String reg_user;
 	
-	@Builder
-	public NTInsertVO(String labelType, String title, String contents, String startDt, String endDt, String registor,
-			String customerId) {
-		super();
-		this.labelType = labelType;
-		this.title = title;
-		this.contents = contents;
-		this.startDt = startDt;
-		this.endDt = endDt;
-		this.registor = registor;
-		this.customerId = customerId;
-	}
 	
 	
 }

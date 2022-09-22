@@ -49,6 +49,15 @@ dependencies {
 	
 		/*Mybatis*/
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+	
+	implementation group: 'com.oracle.ojdbc', name: 'orai18n', version: '19.3.0.0'
+
+
+	// JSTL
+    implementation 'javax.servlet:jstl:1.2'
+	// JASPER
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+    
 }
 
 tasks.named('test') {

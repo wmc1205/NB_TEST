@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.dto.NTInsertVO;
 import com.example.dto.NTSelectListVO;
+import com.example.dto.NTSelectOneVO;
+import com.example.dto.NTUpdateVO;
 import com.example.mapper.NoticeTestMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -14,31 +17,31 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NoticeTestService {
 	
-	private NoticeTestMapper ntMapper;
+	private final NoticeTestMapper nbMapper;
 	
 	public List<NTSelectListVO> noticeSelectList() {
 		
-		return ntMapper.noticeSelectList();
+		return nbMapper.noticeSelectList();
 	}
 
-	public int insertOne(NTSelectListVO paramDto) {
+	public int insertOne(NTInsertVO paramDto) {
 		
-		return ntMapper.insertOne(paramDto);
+		return nbMapper.insertOne(paramDto);
 	}
 
-	public NTSelectListVO noticeSelectOne(int idx) {
+	public NTSelectOneVO noticeSelectOne(int idx) {
 		
-		return ntMapper.noticeSelectOne(idx);
+		return nbMapper.noticeSelectOne(idx);
 	}
 
-	public int updateOne(NTSelectListVO paramDto) {
+	public int updateOne(NTUpdateVO paramDto) {
 		
-		return ntMapper.updateOne(paramDto);
+		return nbMapper.updateOne(paramDto);
 	}
 
 	public int deleteOne(int idx) {
 		
-		return ntMapper.deleteOne(idx);
+		return nbMapper.deleteOne(idx);
 	}
 
 }

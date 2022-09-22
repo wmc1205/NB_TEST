@@ -12,25 +12,23 @@ import lombok.ToString;
 @NoArgsConstructor
 public class NTUpdateVO {
 	private int idx;
-	private String customerId;
 	private String title;
 	private String contents;
-	private String startDt;
-	private String endDt;
-	private String udtUser;
 	private String labelType;
+	private String start_dt;
+	private String end_dt;
+	private String udt_user;
 	
 	@Builder
-	public NTUpdateVO(int idx, String customerId, String title, String contents, String startDt, String endDt,
-			String udtUser, String labelType) {
+	public NTUpdateVO(int idx, String title, String contents, String start_dt, String end_dt,
+			String udt_user, String labelType) {
 		super();
 		this.idx = idx;
-		this.customerId = customerId;
 		this.title = title;
 		this.contents = contents;
-		this.startDt = startDt;
-		this.endDt = endDt;
-		this.udtUser = udtUser;
+		this.start_dt = start_dt;
+		this.end_dt = end_dt;
+		this.udt_user = udt_user;
 		this.labelType = labelType;
 	}
 	

@@ -23,20 +23,6 @@ public class NTSelectOneVO {
 	private String regDt;
 	private String regTm;
 	
-	@Builder
-	public NTSelectOneVO(BigInteger idx, String labelType, String title, String content, String startDt, String endDt,
-			String registor, String regDt, String regTm) {
-		super();
-		this.idx = idx;
-		this.labelType = labelType;
-		this.title = title;
-		this.content = content;
-		this.startDt = startDt;
-		this.endDt = endDt;
-		this.registor = registor;
-		this.regDt = regDt;
-		this.regTm = regTm;
-	}
 
 	
 }

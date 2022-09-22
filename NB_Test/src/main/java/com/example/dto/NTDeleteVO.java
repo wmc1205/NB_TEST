@@ -1,5 +1,7 @@
 package com.example.dto;
 
+import java.math.BigInteger;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,17 +14,10 @@ import lombok.ToString;
 @NoArgsConstructor
 public class NTDeleteVO {
 	
-	private int idx;
-	private String user;
-	private String customerId;
+	private BigInteger idx;
 	
-	@Builder
-	public NTDeleteVO(int idx, String user, String customerId) {
-		super();
-		this.idx = idx;
-		this.user = user;
-		this.customerId = customerId;
-	}
+	
+	
 	
 	
 

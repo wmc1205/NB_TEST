@@ -23,8 +23,5 @@ public class NTSelectListVO {
 	private String regDt;
 	private String regTm;
 	
- 
 
-	
-	
 }
