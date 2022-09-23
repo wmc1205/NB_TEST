@@ -33,9 +33,10 @@ public class NoticeController {
 	private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
 	
 	
-	@GetMapping("/selectList")
+	@GetMapping
 	public List<NTSelectListVO> selectList(){
-		return ntService.noticeSelectList();
+		List<NTSelectListVO> list = ntService.noticeSelectList();
+		return list;
 	}
 	@PostMapping("/insert")
 	public int insertOne(@RequestBody NTInsertVO paramDto) {
@@ -44,7 +45,7 @@ public class NoticeController {
 		return row;
 	}
 	
-	@GetMapping("/select/{idx}")
+	@GetMapping("/{idx}")
 	public NTSelectOneVO noticeSelectOne(@PathVariable int idx) {
 		return ntService.noticeSelectOne(idx);
 	}
@@ -61,8 +62,8 @@ public class NoticeController {
 	public String updateOne(@RequestBody NTUpdateVO paramDto) {
 		int row = ntService.updateOne(paramDto);
 		if(row == 1)
-		logger.info("수정 실패");
-		return "redirect:/selectList" + paramDto.getIdx();
+		logger.info("수정 성공");
+		return "redirect:/selectList/" + paramDto.getIdx();
 		
 	}
 	@PostMapping("/delete/{idx}")

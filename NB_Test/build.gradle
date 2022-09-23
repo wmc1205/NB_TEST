@@ -53,10 +53,8 @@ dependencies {
 	implementation group: 'com.oracle.ojdbc', name: 'orai18n', version: '19.3.0.0'
 
 
-	// JSTL
-    implementation 'javax.servlet:jstl:1.2'
-	// JASPER
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation 'javax.servlet:jstl'
+    implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
     
 }
 

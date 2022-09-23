@@ -64,16 +64,16 @@
 		(
 			#{title}
 			,#{contents}
-			,#{status}
+			,'y'
 			,#{labelType}
-			,#{importance}
-			,#{start_dt}
-			,#{start_tm}
-			,#{end_dt}
-			,#{end_tm}
-			,#{reg_dt}
-			,#{reg_tm}
-			,#{reg_user}
+			,'H'
+			,'20220923'
+			,'000000'
+			,'20220924'
+			,'000000'
+			,TO_CHAR(SYSDATE, 'YYYYMMDD')
+			,TO_CHAR(SYSDATE, 'HH24MISS')
+			,'testman'
 		)
 		 ]]>
     </insert>
@@ -83,14 +83,13 @@
     	UPDATE 
     		NB_TEST
     	SET
-    		labelType = #{labelType}
-    		,title =  #{title}
+    		title =  #{title}
 			,contents = #{contents}
+    		,labelType = #{labelType}
 			,start_dt = #{start_dt}
 			,end_dt = #{end_dt}
     		,udt_dt = TO_CHAR(SYSDATE, 'YYYYMMDD')
 			,udt_tm = TO_CHAR(SYSDATE, 'HH24MISS')
-			,udt_user = #{udt_user}
     	WHERE 1=1
     	AND IDX = #{idx}
     	
