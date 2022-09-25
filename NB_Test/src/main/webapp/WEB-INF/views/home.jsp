@@ -29,8 +29,6 @@
 		</table>
 			<div class="buttons">
 				<button id="addBtn">add</button>
-				<button id="editBtn">edit</button>
-				<button id="deleteBtn">delete</button>
 			</div>
 		</div>
 			
@@ -66,6 +64,7 @@
 				</tbody>
 			</table>
 		</div>
+
 		<div id="addModal" class="hidden">
 			<div class="addModalContent">
 			<h2>add notice</h2>
@@ -114,19 +113,28 @@
 			</div>
 			<div class="modal_layer"></div>
 			</div>
-		
-		<div id="editModal" class="hidden">
-		</div>
+
+	<div id="selectInfoModal" class="hidden">
+	    <div class="modal_content"></div>
+        <div class="modal_overlay"></div>
+	</div>
+
 	<script>
 		//addModal open 
 		document.getElementById('addBtn').onclick = function(){
 		document.getElementById("addModal").style.display="block";
 		}
-		
+
 		const insertForm = document.forms[0]
-		const listArray = Array.form(document.querySelectorAll())
+		const modal_content = document.querySelector('#selectInfoModal>.modal_content')
+		const modal_overlay = document.querySelector('#selectInfoModal >.modal_overlay')
+
 		insertForm.addEventListener('submit',insertHandler)
 		window.addEventListener('load',listLoadHandler)
+
+
+        modal_overlay.addEventListener('click',closeModal)
+
 	
 	</script>
 </body>
