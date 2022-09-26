@@ -32,11 +32,11 @@
 				,labelType
 				,title
 				,contents as content
-				,start_dt AS startDt
-				,end_dt  AS endDt
-				,reg_user AS registor
-				,reg_dt  AS regDt
-				,reg_tm AS regTm
+				,start_dt
+				,end_dt  
+				,reg_user as registor
+				,reg_dt 
+				,reg_tm 
 			FROM 
 			NB_TEST 
 			where 1=1	
@@ -65,7 +65,7 @@
 			#{title}
 			,#{contents}
 			,'y'
-			,#{labelType}
+			,'C'
 			,'H'
 			,'20220923'
 			,'000000'
@@ -83,18 +83,15 @@
     	UPDATE 
     		NB_TEST
     	SET
-    		title =  #{title}
+    		 title =  #{title}
 			,contents = #{contents}
-    		,labelType = #{labelType}
-			,start_dt = #{start_dt}
-			,end_dt = #{end_dt}
+    		,labelType = 'C'
+			,start_dt = '20220930'
+			,end_dt = '20220930'
     		,udt_dt = TO_CHAR(SYSDATE, 'YYYYMMDD')
-			,udt_tm = TO_CHAR(SYSDATE, 'HH24MISS')
-    	WHERE 1=1
-    	AND IDX = #{idx}
+			,udt_tm = TO_CHAR(SYSDATE, 'HH24MISS')		
     	
-    	
-    	
+    	where IDX = #{idx}
     ]]>
     </update>
 	

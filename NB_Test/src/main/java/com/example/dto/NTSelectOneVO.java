@@ -19,7 +19,7 @@ public class NTSelectOneVO {
 	private String content;
 	private String startDt;
 	private String endDt;
-	private String registor;
+	private String reg_user;
 	private String regDt;
 	private String regTm;
 	

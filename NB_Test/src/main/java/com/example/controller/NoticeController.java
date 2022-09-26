@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,25 +52,25 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/update/{idx}")
-	public String updateOne(@PathVariable int idx,Model model) {
-		NTSelectOneVO dto = ntService.noticeSelectOne(idx);
-		model.addAttribute("update",dto);
-		return "/edit";
+	public NTSelectOneVO updateOne(@PathVariable int idx) {
+		return ntService.noticeSelectOne(idx);
+		
 	}
 	
 	
 	@PostMapping("/update/{idx}")
-	public String updateOne(@RequestBody NTUpdateVO paramDto) {
+	public int updateOne(NTUpdateVO paramDto) {
 		int row = ntService.updateOne(paramDto);
 		if(row == 1)
 		logger.info("수정 성공");
-		return "redirect:/selectList/" + paramDto.getIdx();
-		
+		return row;
 	}
 	@PostMapping("/delete/{idx}")
-	public String deleteOne(@PathVariable int idx) {
-		ntService.deleteOne(idx);
-		return "redirect:/selectList";
+	public int deleteOne(@PathVariable int idx) {
+		int row = ntService.deleteOne(idx);
+			if(row == 1)
+			logger.info("삭제 성공");
+			return row;
 			
 	}
 	

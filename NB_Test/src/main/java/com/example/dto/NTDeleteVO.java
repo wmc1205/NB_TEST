@@ -15,10 +15,4 @@ import lombok.ToString;
 public class NTDeleteVO {
 	
 	private BigInteger idx;
-	
-	
-	
-	
-	
-
 }

@@ -70,13 +70,14 @@
 			<h2>add notice</h2>
 			<div>
 			<a href="${cpath }"><button>go to list</button></a>
-			<button>clear</button>
+			
 			</div>
 				<form>
+				<input type="reset" value="clear">
 			<table id="addTable">
 				<tr>
 					<th>title</th>
-					<td><input type="text" name="title" value="insert title"></td>
+					<td colspan="5"><input type="text" name="title" value="insert title"></td>
 				</tr>
 				<tr>
 					<th>Type</th>
@@ -92,9 +93,9 @@
 				</tr>
 				<tr>
 				<th>Registrator</th>
-				<td>${reg_user }</td>
+				<td><input type="text" name="reg_user"></td>
 				<th>Label</th>
-				<td>
+				<td colspan="3">
 					<select>
 						<option value="A">all</option>
 						<option value="C">customer</option>
@@ -104,7 +105,7 @@
 				</tr>
 				<tr>
 					<th>content</th>
-					<td><textarea id="add_content" name="contents" rows="5" cols="33"></textarea></td>
+					<td colspan="5"><textarea id="add_content" name="contents" rows="5" cols="33"></textarea></td>
 				</tr>
 				
 			</table>
@@ -113,6 +114,13 @@
 			</div>
 			<div class="modal_layer"></div>
 			</div>
+
+		
+		<div id="editModal" class="hidden">
+			<div id="editModalContent"></div>
+			<div class="modal_layer"></div>
+		
+		</div>
 
 	<div id="selectInfoModal" class="hidden">
 	    <div class="modal_content"></div>
@@ -124,14 +132,16 @@
 		document.getElementById('addBtn').onclick = function(){
 		document.getElementById("addModal").style.display="block";
 		}
-
+		
 		const insertForm = document.forms[0]
+		
 		const modal_content = document.querySelector('#selectInfoModal>.modal_content')
 		const modal_overlay = document.querySelector('#selectInfoModal >.modal_overlay')
-
+		
 		insertForm.addEventListener('submit',insertHandler)
+		
 		window.addEventListener('load',listLoadHandler)
-
+		
 
         modal_overlay.addEventListener('click',closeModal)
 
