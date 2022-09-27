@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.dto.Criteria;
 import com.example.dto.NTInsertVO;
 import com.example.dto.NTSelectListVO;
 import com.example.dto.NTSelectOneVO;
@@ -44,4 +45,9 @@ public class NoticeTestService {
 		return nbMapper.deleteOne(idx);
 	}
 
+	public List<NTSelectListVO> getSearchList(NTSelectListVO dto) {
+		
+		return nbMapper.getSearchList(dto);
+	}
+	
 }

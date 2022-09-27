@@ -24,5 +24,10 @@ public class NTSelectListVO {
 	private String regDt;
 	private String regTm;
 	
+	//검색 필터
+	private String labelTypeSH;
+	private String titleSH;
+	private String regUserSH;
+	
 
 }

@@ -7,18 +7,47 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
+<script>
+	function getSearchList(){
+		$.ajax({
+			type:'GET',
+			url:"/getSearchList",
+			data : $("form[#searchForm]").serialize(),
+			success : function(result){
+				console.log(result)
+				$('#boardTB > #listInfo').empty();
+				if(result.length>=1){
+					result.forEach(function(item){
+						str='<tr>'
+							str += "<td>"+item.labelType+"</td>";
+							str+="<td>"+item.title+"</td>";
+							str+="<td>"+item.startDt+"</td>";
+							str+="<td>"+item.regUser+"</td>";
+							str+="<td>"+item.endDt+"</td>";
+							str+="</tr>"
+							$('#boardTB').append(str);
+					})
+				}
+			}
+		})
+	}
+
+</script>
+
+
 <body>
 	<div class="root">
-		<form name="search">
+		<form id="searchForm" >
 		<table id="upper">
 			<tr>
 				<th>Type</th>
 				<td>Internal</td>
 				<th>Title</th>
-				<td><input type="text" name="title"></td>
+				<td><input type="text"  id="title" name="titleSH"></td>
 				<th>Label</th>
-				<td><select name="labelType">
-					<option value="A">All</option>
+				<td><select name="labelTypeSH">
+					<option selected value="A">All</option>
 					<option value="C">Customer</option>
 					<option value="B">Bank</option>
 				</select></td>
@@ -26,15 +55,15 @@
 			<tr>
 				<th>Valid</th>
 				<td>
-				<select name="valid">
+				<select name="validType">
 					<option value="valid">valid</option>
 					<option value="expired">expired</option>
 				</select>
 				</td>
 				<th>Registor</th>
-				<td><input type="text" placeholder="registor"></td>
+				<td><input type="text" name="regUserSH" placeholder="registor"></td>
 				<td></td>
-				<td><input type="submit" value="search"></td>
+				<td><input type="button" onclick="getSearchList()" value="searchBtn"></td>
 			</tr>
 		</table>
 		</form>
@@ -148,6 +177,7 @@
 		
 		const modal_content = document.querySelector('#selectInfoModal>.modal_content')
 		const modal_overlay = document.querySelector('#selectInfoModal >.modal_overlay')
+		
 		
 		insertForm.addEventListener('submit',insertHandler)
 		

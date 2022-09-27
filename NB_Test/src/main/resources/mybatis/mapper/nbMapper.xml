@@ -6,7 +6,7 @@
 <mapper namespace="com.example.mapper.NoticeTestMapper">
 	
 	<select id="noticeSelectList" resultType="com.example.dto.NTSelectListVO">
-		
+		<![CDATA[
 			SELECT
 				idx
 				,labelType
@@ -16,13 +16,36 @@
 				,reg_user 
 				,reg_dt  AS regDt
 				,reg_tm AS regTm
+				,case when startDt <= TO_CHAR(sysdate,'YYYYMMDD') and TO_CHAR(sysdate,'YYYYMMDD') <= endDt then 'valid'
+				else 'expired'
+				end validType
 			FROM 
 			NB_TEST 	
-				where 1=1
+				]]>
+				<where>
+				<if test='labelType != null and labelType !=""'>
+					<![CDATA[
+					and labelType = #{labelType}
+					]]>
+				</if>
+				<if test='title != null and title !=""'>
+					<![CDATA[
+					and title like '%'||#{title}||'%'
+					]]>
+				</if>
+				<if test='validType != null and validType !=""'>
+					<![CDATA[
+					and validType = #{validType}
+					]]>
+				</if>
+				<if test='reg_user != null and reg_user !=""'>
+					<![CDATA[
+					and reg_user like'%'||#{reg_user}||'%'
+					]]>
+				</if>
 				and status='y'
+				</where>
 			    ORDER BY IDX DESC
-
-		
 	</select>
 	
 	<select id="noticeSelectOne" resultType="com.example.dto.NTSelectOneVO">
@@ -52,7 +75,6 @@
 			,contents  
 			,status
 			,labelType
-			,importance
 			,startDt 
 			,start_tm 
 			,endDt 
@@ -66,7 +88,6 @@
 			,#{contents}
 			,'y'
 			,#{labelType}
-			,'H'
 			,#{startDt}
 			,'000000'
 			,#{endDt}

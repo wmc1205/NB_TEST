@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.dto.Criteria;
 import com.example.dto.NTInsertVO;
 import com.example.dto.NTSelectListVO;
 import com.example.dto.NTSelectOneVO;
 import com.example.dto.NTUpdateVO;
 import com.example.service.NoticeTestService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ch.qos.logback.classic.Logger;
 import lombok.RequiredArgsConstructor;
@@ -35,10 +38,22 @@ public class NoticeController {
 	
 	
 	@GetMapping
-	public List<NTSelectListVO> selectList(){
+	public List<NTSelectListVO> selectList() throws Exception{
 		List<NTSelectListVO> list = ntService.noticeSelectList();
 		return list;
 	}
+	
+	@GetMapping("/getSearchList")
+	public List<NTSelectListVO> getSearchList(@RequestParam("labelTypeSH") String labelType,
+											@RequestParam("titleSH") String title,
+											@RequestParam("regUserSH") String regUser){
+		NTSelectListVO dto = new NTSelectListVO();
+		dto.setLabelTypeSH(labelType);
+		dto.setTitleSH(title);
+		dto.setRegUserSH(regUser);
+		return ntService.getSearchList(dto);
+	}
+	
 	@PostMapping("/insert")
 	public int insertOne(@RequestBody NTInsertVO paramDto) {
 		int row = ntService.insertOne(paramDto);
@@ -71,6 +86,5 @@ public class NoticeController {
 			return row;
 			
 	}
-	
 
 }

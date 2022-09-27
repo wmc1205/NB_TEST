@@ -221,10 +221,6 @@ function updateHandler(event){
 	})
 }
 
-
-
-
-
 function deleteHandler(idx){
 	const flag = confirm('정말 삭제하시겠습니까?')
 	if(flag){
@@ -245,3 +241,38 @@ function deleteHandler(idx){
 	}
 
 }
+
+
+//function searchListHandler(){
+//	const searchForm = document.querySelector('#searchForm');
+//	const data = new FormData(searchForm);
+//	const serializedFormData = serialize(data);
+//	console.log(JSON.stringify(serializedFormData));
+//	
+//	listLoadHandler();
+//	
+//}
+//function serialize(rawData){
+//	let rtnData = {};
+//	for (let [key, value] of rawData) {
+//		let sel = document.querySelectorAll("[name=" + key + "]");
+//	
+//		// Array Values
+//		if (sel.length > 1) {
+//			if (rtnData[key] === undefined) {
+//				rtnData[key] = [];				
+//			}
+//			rtnData[key].push(value);
+//		} 
+//		// Other 
+//		else {
+//        	rtnData[key] = value;
+//		}
+//	}
+//	
+//	return rtnData;
+//
+//}
+
+
+
