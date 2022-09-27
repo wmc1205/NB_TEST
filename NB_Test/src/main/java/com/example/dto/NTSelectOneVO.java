@@ -1,6 +1,7 @@
 package com.example.dto;
 
 import java.math.BigInteger;
+import java.sql.Date;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -14,12 +15,12 @@ import lombok.ToString;
 @NoArgsConstructor
 public class NTSelectOneVO {
 	private BigInteger idx;
-	private String labelType;
 	private String title;
-	private String content;
-	private String startDt;
-	private String endDt;
-	private String reg_user;
+	private String contents;
+	private String labelType;
+	private Date startDt;
+	private Date endDt;
+	private String regUser;
 	private String regDt;
 	private String regTm;
 	

@@ -54,12 +54,10 @@ public class NoticeController {
 	@GetMapping("/update/{idx}")
 	public NTSelectOneVO updateOne(@PathVariable int idx) {
 		return ntService.noticeSelectOne(idx);
-		
 	}
 	
-	
 	@PostMapping("/update/{idx}")
-	public int updateOne(NTUpdateVO paramDto) {
+	public int updateOne(@RequestBody NTUpdateVO paramDto) {
 		int row = ntService.updateOne(paramDto);
 		if(row == 1)
 		logger.info("수정 성공");

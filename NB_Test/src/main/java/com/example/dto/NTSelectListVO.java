@@ -1,6 +1,7 @@
 package com.example.dto;
 
 import java.math.BigInteger;
+import java.sql.Date;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -17,9 +18,9 @@ public class NTSelectListVO {
 	private BigInteger idx;
 	private String labelType;
 	private String title;
-	private String startDt;
-	private String endDt;
-	private String registor;
+	private Date startDt;
+	private Date endDt;
+	private String regUser;
 	private String regDt;
 	private String regTm;
 	

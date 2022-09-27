@@ -11,9 +11,9 @@
 				idx
 				,labelType
 				,title
-				,start_dt AS startDt
-				,end_dt  AS endDt
-				,reg_user AS registor
+				,startDt
+				,endDt   
+				,reg_user 
 				,reg_dt  AS regDt
 				,reg_tm AS regTm
 			FROM 
@@ -31,10 +31,10 @@
 				idx
 				,labelType
 				,title
-				,contents as content
-				,start_dt
-				,end_dt  
-				,reg_user as registor
+				,contents 
+				,startDt
+				,endDt 
+				,reg_user 
 				,reg_dt 
 				,reg_tm 
 			FROM 
@@ -53,27 +53,27 @@
 			,status
 			,labelType
 			,importance
-			,start_dt 
+			,startDt 
 			,start_tm 
-			,end_dt 
+			,endDt 
+			,reg_user 
 			,end_tm 
 			,reg_dt
 			,reg_tm 
-			,reg_user 
 		)VALUES
 		(
 			#{title}
 			,#{contents}
 			,'y'
-			,'C'
+			,#{labelType}
 			,'H'
-			,'20220923'
+			,#{startDt}
 			,'000000'
-			,'20220924'
+			,#{endDt}
+			,#{reg_user}
 			,'000000'
 			,TO_CHAR(SYSDATE, 'YYYYMMDD')
 			,TO_CHAR(SYSDATE, 'HH24MISS')
-			,'testman'
 		)
 		 ]]>
     </insert>
@@ -85,13 +85,13 @@
     	SET
     		 title =  #{title}
 			,contents = #{contents}
-    		,labelType = 'C'
-			,start_dt = '20220930'
-			,end_dt = '20220930'
+    		,labelType = #{labelType}
+			,startDt = #{startDt}
+			,endDt = #{endDt}
     		,udt_dt = TO_CHAR(SYSDATE, 'YYYYMMDD')
 			,udt_tm = TO_CHAR(SYSDATE, 'HH24MISS')		
-    	
-    	where IDX = #{idx}
+    	where 1=1
+    	and idx = #{idx}
     ]]>
     </update>
 	
@@ -102,9 +102,7 @@
     	SET
     		STATUS = 'n'
     		,udt_dt = TO_CHAR(SYSDATE, 'YYYYMMDD')
-			,udt_tm = TO_CHAR(SYSDATE, 'HH24MISS')
-			
-    		
+			,udt_tm = TO_CHAR(SYSDATE, 'HH24MISS')	
     	WHERE 1=1
     	AND IDX = ${idx}
     	

@@ -9,24 +9,35 @@
 </head>
 <body>
 	<div class="root">
+		<form name="search">
 		<table id="upper">
 			<tr>
 				<th>Type</th>
-				<td>a</td>
+				<td>Internal</td>
 				<th>Title</th>
-				<td>b</td>
+				<td><input type="text" name="title"></td>
 				<th>Label</th>
-				<td></td>
+				<td><select name="labelType">
+					<option value="A">All</option>
+					<option value="C">Customer</option>
+					<option value="B">Bank</option>
+				</select></td>
 			</tr>
 			<tr>
 				<th>Valid</th>
-				<td>c</td>
+				<td>
+				<select name="valid">
+					<option value="valid">valid</option>
+					<option value="expired">expired</option>
+				</select>
+				</td>
 				<th>Registor</th>
-				<td>d</td>
+				<td><input type="text" placeholder="registor"></td>
 				<td></td>
-				<td><button>search</button></td>
+				<td><input type="submit" value="search"></td>
 			</tr>
 		</table>
+		</form>
 			<div class="buttons">
 				<button id="addBtn">add</button>
 			</div>
@@ -77,7 +88,7 @@
 			<table id="addTable">
 				<tr>
 					<th>title</th>
-					<td colspan="5"><input type="text" name="title" value="insert title"></td>
+					<td colspan="5"><input type="text" name="title" placeholder="insert title"></td>
 				</tr>
 				<tr>
 					<th>Type</th>
@@ -87,16 +98,16 @@
 					</select>
 					</td>
 					<th>Valid date from</th>
-					<td><input type="date" name="start_dt"></td>
+					<td><input type="date" name="startDt"></td>
 					<th>Valid date to</th>
-					<td><input type="date" name="end_dt"></td>
+					<td><input type="date" name="endDt"></td>
 				</tr>
 				<tr>
 				<th>Registrator</th>
 				<td><input type="text" name="reg_user"></td>
 				<th>Label</th>
 				<td colspan="3">
-					<select>
+					<select name="labelType">
 						<option value="A">all</option>
 						<option value="C">customer</option>
 						<option value="B">bank</option>
@@ -133,7 +144,7 @@
 		document.getElementById("addModal").style.display="block";
 		}
 		
-		const insertForm = document.forms[0]
+		const insertForm = document.forms[1]
 		
 		const modal_content = document.querySelector('#selectInfoModal>.modal_content')
 		const modal_overlay = document.querySelector('#selectInfoModal >.modal_overlay')

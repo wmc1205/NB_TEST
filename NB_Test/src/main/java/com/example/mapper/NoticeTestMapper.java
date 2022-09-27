@@ -20,7 +20,7 @@ public interface NoticeTestMapper {
 	public int insertOne(NTInsertVO paramDto); 
 
 	public NTSelectOneVO noticeSelectOne(int idx);
-
+	
 	public int updateOne(NTUpdateVO paramDto);
 
 	public int deleteOne(int idx);

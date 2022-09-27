@@ -1,8 +1,9 @@
 package com.example.dto;
 
 import java.math.BigInteger;
+import java.sql.Date;
 
-import lombok.Builder;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,8 +18,8 @@ public class NTUpdateVO {
 	private String title;
 	private String contents;
 	private String labelType;
-	private String start_dt;
-	private String end_dt;
+	private Date startDt;
+	private Date endDt;
 	//private String udt_user;
 	
 //	@Builder

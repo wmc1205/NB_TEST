@@ -36,7 +36,7 @@ function openModal(event){
 	        </td>
 	        <th>Type</th>
 	        <td>
-	        	<select><option value="C">Internal</option></select>
+	        	Internal
 	        </td>
 	        <th>valid date from</th>
 	        <td>
@@ -45,10 +45,10 @@ function openModal(event){
 	        <th>Valid date to</th>
 	        <td>${json.endDt}</td>
 	    </tr>
-        <tr><th>Registrator</th><td>${json.reg_user}</td><th>Label</th>
-        <td colspan="5"><select><option value="H">All</option></td>
+        <tr><th>Registrator</th><td>${json.regUser}</td><th>Label</th>
+        <td colspan="5">${json.labelType}</td>
         </tr>
-        <tr><th>Content</th><td colspan="7">${json.content}</td></table>
+        <tr><th>Content</th><td colspan="7">${json.contents}</td></table>
 		`
     })
         document.getElementById('selectInfoModal').classList.remove('hidden')
@@ -94,88 +94,37 @@ function openEditModal(idx){
 				</select>
 				</td>
 					<th>Valid date from</th>
-					<td><input type="date" name="start_dt"></td>
+					<td><input type="date" name="startDt"></td>
 					<th>Valid date to</th>
-					<td><input type="date" name="end_dt"></td>
+					<td><input type="date" name="endDt"></td>
 				</tr>
 				<tr>
 				<th>Registrator</th>
-				<td><input type="text" name="reg_user" value="${json.reg_user}"></td>
+				<td><input type="text" name="reg_user" value="${json.regUser}"></td>
 				<th>Label</th>
 				<td colspan="3">
-					<select >
-						<option value="A">all</option>
-						<option value="C">customer</option>
-						<option value="B">bank</option>
+					<select name="labelType">
+						<option value="A">All</option>
+						<option value="C">Customer</option>
+						<option value="B">Bank</option>
 					</select>
 				 </td>
 				</tr>
 				<tr>
 					<th>content</th>
-					<td colspan="5"><textarea id="edit_content" name="contents" rows="5" cols="33">${json.content}</textarea></td>
+					<td colspan="5"><textarea id="edit_content" name="contents" rows="5" cols="33">${json.contents}</textarea></td>
 			</tr>
 			</table>
 			<p><input type="submit" value="save"></p>
 			</form>		
 			</div>`
-		const updateForm = document.forms[1]
+		const updateForm = document.forms[2]
 		updateForm.addEventListener('submit',updateHandler) 
 	})
 	document.getElementById('editModal').classList.remove('hidden')
 }
 
-//function editModalForm(){
-//	const editModalContent = document.getElementById('editModalContent')
-//	editModalContent.innerHTML = ''
-//	editModalContent.innerHTML += 
-//	`<h2>edit notice</h2>
-//			<div>
-//			<a href="${cpath }"><button>go to list</button></a>
-//			</div>
-//			<form>
-//				<input type="reset" value="clear">
-//			<input type="hidden" name="idx" ">
-//			<table id="editTable">
-//			<tr>
-//					<th>title</th>
-//				<td colspan="5"><input type="text" name="title"></td>
-//				</tr>
-//				<tr>
-//					<th>Type</th>
-//					<td>
-//					<select>
-//					<option value="C">internal</option>
-//				</select>
-//				</td>
-//					<th>Valid date from</th>
-//					<td><input type="date" name="start_dt"></td>
-//					<th>Valid date to</th>
-//					<td><input type="date" name="end_dt"></td>
-//				</tr>
-//				<tr>
-//				<th>Registrator</th>
-//				<td><input type="text" name="reg_user"></td>
-//				<th>Label</th>
-//				<td colspan="3">
-//					<select>
-//						<option value="A">all</option>
-//						<option value="C">customer</option>
-//						<option value="B">bank</option>
-//					</select>
-//				 </td>
-//				</tr>
-//				<tr>
-//					<th>content</th>
-//					<td colspan="5"><textarea id="edit_content" name="contents" rows="5" cols="33"></textarea></td>
-//			</tr>
-//			</table>
-//			<p><input type="submit" value="save"></p>
-//			</form>		
-//			</div>`
-//		const updateForm = document.forms[1]
-//		updateForm.addEventListener('submit',updateHandler) 
-//}
-//
+
 
 
 function listConvert(dto){
@@ -191,9 +140,11 @@ function listConvert(dto){
 		switch(key){
 			case 'idx':
 			case 'regTm':
+			case 'contents':
 			continue;
+			
 		}
-			const td = document.createElement('td')
+		const td = document.createElement('td')
 			td.className = key
 			td.innerText = dto[key]
 			item.appendChild(td)
@@ -265,7 +216,7 @@ function updateHandler(event){
 	.then(resp=>resp.text())
 	.then(text=>{
 		if(text==1){
-			location.href = cpath + 'board/home';
+			location.href = cpath + '/board/home';
 		}
 	})
 }
