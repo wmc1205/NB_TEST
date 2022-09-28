@@ -21,6 +21,7 @@ import com.example.dto.NTInsertVO;
 import com.example.dto.NTSelectListVO;
 import com.example.dto.NTSelectOneVO;
 import com.example.dto.NTUpdateVO;
+import com.example.paging.Pagination;
 import com.example.service.NoticeTestService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,21 +39,22 @@ public class NoticeController {
 	
 	
 	@GetMapping
-	public List<NTSelectListVO> selectList() throws Exception{
-		List<NTSelectListVO> list = ntService.noticeSelectList();
+	public List<NTSelectListVO> selectList(@RequestParam HashMap<String,Object> param) throws Exception{
+		List<NTSelectListVO> list = ntService.noticeSelectList(param);
+		int boardCount = ntService.selectBoardCount(param);
 		return list;
 	}
 	
-	@GetMapping("/getSearchList")
-	public List<NTSelectListVO> getSearchList(@RequestParam("labelTypeSH") String labelType,
-											@RequestParam("titleSH") String title,
-											@RequestParam("regUserSH") String regUser){
-		NTSelectListVO dto = new NTSelectListVO();
-		dto.setLabelTypeSH(labelType);
-		dto.setTitleSH(title);
-		dto.setRegUserSH(regUser);
-		return ntService.getSearchList(dto);
-	}
+//	@GetMapping("/getSearchList")
+//	public List<NTSelectListVO> getSearchList(@RequestParam HashMap<String,Object> param,
+//										@RequestParam(defaultValue="1")Integer page,
+//										Model model){
+//		NTSelectListVO dto = new NTSelectListVO();
+//		
+//		
+//		
+//		return ntService.getSearchList(dto);
+//	}
 	
 	@PostMapping("/insert")
 	public int insertOne(@RequestBody NTInsertVO paramDto) {

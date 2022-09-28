@@ -1,15 +1,44 @@
 'use strict';
 
+
+
+
 function closeModal(){
     document.getElementById('selectInfoModal').classList.add('hidden')
 }
 
+
+//	$.ajax({
+//			type:'GET',
+//			url: cpath + '/board',
+//			data : $("form[name=searchForm]").serialize(),
+//			success : function(data){				
+//				var html = "";
+//				for(var i=0; i<data.length; i++){
+//					var getData = data[i];
+//					
+//					html += "<tr data-idx='"+getData.idx+"'>";
+//					html += 	"<td>"+getData.labelType+"</td>";
+//					html += 	"<td onclick='openModal()'>" +getData.title +"</td>";
+//					html += 	"<td>"+getData.startDt+"</td>";
+//					html += 	"<td>"+getData.endDt+"</td>";
+//					html += 	"<td>"+getData.regUser+"</td>";
+//					html +=		"<td>"+getData.regDt+" " +getData.regTm +"</td>";
+//					html += "</tr>";	
+//				}
+//				
+//				$("#boardTB").find("tbody").html(html);
+//				
+//			}
+//		})
+
+
 function openModal(event){
-    let target = event.target
-    while(target.classList.contains('item') == false){
-        target = target.parentNode
-    }
-    const idx = target.getAttribute('idx')
+	let target =event.target
+	if(target.classList.contains('item') == false){
+		target = target.parentNode
+	}
+    let idx = $(target).data('idx')
     const url = cpath + '/board/'+ idx
     const opt = {
         method : 'GET',
@@ -124,50 +153,36 @@ function openEditModal(idx){
 	document.getElementById('editModal').classList.remove('hidden')
 }
 
-
-
-
-function listConvert(dto){
-	const item = document.createElement('tr')
-	item.classList.add('item')
-	item.setAttribute('idx',dto.idx)
-
-
-
-//	item.setAttribute('idx',dto.idx)
-//	item.addEventListener('click',openModal)
-	for(let key in dto){
-		switch(key){
-			case 'idx':
-			case 'regTm':
-			case 'contents':
-			continue;
-			
-		}
-		const td = document.createElement('td')
-			td.className = key
-			td.innerText = dto[key]
-			item.appendChild(td)
-			if(td.className == 'title'){
-			    td.addEventListener('click',openModal)
+//검색기능
+function getSearchList(){
+	$.ajax({
+			type:'GET',
+			url: cpath + '/board',
+			data : $("form[name=searchForm]").serialize(),
+			success : function(data){				
+				var html = "";
+				for(var i=0; i<data.length; i++){
+					var getData = data[i];
+//					var startDt = JSON.stringify(getData.startDt);
+//					var endDt =  JSON.stringify(getData.endDt);
+					
+					html += "<tr class='item' data-idx='"+getData.idx+ "'>";
+					html += 	"<td class='labelType'>"+getData.labelType+"</td>";
+					html += 	"<td onclick='openModal(event)' class='title'>" +getData.title +"</td>";
+					html += 	"<td class='startDt'>"+getData.startDt+"</td>";
+					html += 	"<td class='endDt'>"+getData.endDt+"</td>";
+					html += 	"<td class='reg_user'>"+getData.regUser+"</td>";
+					html +=		"<td class='regDt'>"+getData.regDt+" " +getData.regTm +"</td>";
+					html += "</tr>";	
+				}
+				
+				$("#boardTB").find("tbody").html(html);
+				
 			}
-
-}
-return item
+		})
 }
 
 
-function listLoadHandler(event){
-	
-	const listInfo = document.getElementById('listInfo')
-	const url = cpath + '/board'
-	listInfo.innerHTML = ''
-	fetch(url)
-	.then(resp => resp.json())
-	.then(json=>{
-		json.forEach(dto=>listInfo.appendChild(listConvert(dto)))
-	})
-}
 
 function insertHandler(event){
 	event.preventDefault()

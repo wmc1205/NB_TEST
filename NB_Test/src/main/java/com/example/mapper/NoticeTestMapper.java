@@ -1,5 +1,6 @@
 package com.example.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -17,7 +18,7 @@ public interface NoticeTestMapper {
 	 * @return 게시글 리스트
 	 */
 	//전체 조회
-	public List<NTSelectListVO> noticeSelectList();
+	public List<NTSelectListVO> noticeSelectList(HashMap<String,Object> param);
 	//데이터 추가
 	public int insertOne(NTInsertVO paramDto); 
 	//데이터 개별 조회
@@ -28,5 +29,7 @@ public interface NoticeTestMapper {
 	public int deleteOne(int idx);
 	//데이터 검색 조회
 	public List<NTSelectListVO> getSearchList(NTSelectListVO dto);
+	
+	public int selectBoardCount(HashMap<String, Object> param);
 
 }

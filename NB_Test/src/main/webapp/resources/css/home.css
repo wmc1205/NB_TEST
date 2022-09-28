@@ -31,6 +31,9 @@ textarea{
     border: 1px solid #444444;
     padding: 5px;
  }
+ th{
+ 	background-color: #FFF033;
+ }
  .hidden{
  	display:none;
  }

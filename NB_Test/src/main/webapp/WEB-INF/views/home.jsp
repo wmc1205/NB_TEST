@@ -9,61 +9,45 @@
 </head>
 
 <script>
-	function getSearchList(){
-		$.ajax({
-			type:'GET',
-			url:"/getSearchList",
-			data : $("form[#searchForm]").serialize(),
-			success : function(result){
-				console.log(result)
-				$('#boardTB > #listInfo').empty();
-				if(result.length>=1){
-					result.forEach(function(item){
-						str='<tr>'
-							str += "<td>"+item.labelType+"</td>";
-							str+="<td>"+item.title+"</td>";
-							str+="<td>"+item.startDt+"</td>";
-							str+="<td>"+item.regUser+"</td>";
-							str+="<td>"+item.endDt+"</td>";
-							str+="</tr>"
-							$('#boardTB').append(str);
-					})
-				}
-			}
-		})
-	}
+$(function(){
+	
+	getSearchList();
+	
+});
+
 
 </script>
 
 
 <body>
 	<div class="root">
-		<form id="searchForm" >
+		<form id="searchForm" name="searchForm" >
 		<table id="upper">
 			<tr>
 				<th>Type</th>
 				<td>Internal</td>
 				<th>Title</th>
-				<td><input type="text"  id="title" name="titleSH"></td>
+				<td><input type="search"  id="title" name="title" value="${param.title}"></td>
 				<th>Label</th>
-				<td><select name="labelTypeSH">
-					<option selected value="A">All</option>
-					<option value="C">Customer</option>
-					<option value="B">Bank</option>
+				<td><select name="labelType" id="labelType">
+					<option	${param.labelType =='' ? 'selected' : ''} 	value="">---</option>
+					<option ${param.labelType == 'A' ? 'selected':''} 	value="A">All</option>
+					<option ${param.labelType == 'C' ? 'selected':''}	value="C">Customer</option>
+					<option ${param.labelType == 'B' ? 'selected':''}	value="B">Bank</option>
 				</select></td>
 			</tr>
 			<tr>
 				<th>Valid</th>
 				<td>
-				<select name="validType">
-					<option value="valid">valid</option>
-					<option value="expired">expired</option>
+				<select name="validType" id="validType">
+					<option value="0">valid</option>
+					<option value="1">expired</option>
 				</select>
 				</td>
 				<th>Registor</th>
-				<td><input type="text" name="regUserSH" placeholder="registor"></td>
-				<td></td>
-				<td><input type="button" onclick="getSearchList()" value="searchBtn"></td>
+				<td><input type="search" name="reg_user" id="reg_user" value="${param.regUser }" placeholder="registor"></td>
+				
+				<td colspan="2"><input type="button" onclick="getSearchList()" value="searchBtn"></td>
 			</tr>
 		</table>
 		</form>
@@ -77,28 +61,14 @@
 		<div>
 			<table id="boardTB">
 				<thead>
-				<tr>
-					<th>Type</th>
-					<th>Title</th>
-					<th>Valid date from</th>
-					<th>Valid date to</th>
-					<th>Registor</th>
-					<th>Registrated date time</th>
-				</tr>
-				<tr>
-					<td>
-					<select>
-						<option value="A">all</option>
-						<option value="C">customer</option>
-						<option value="B">bank</option>
-					</select>
-					</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+					<tr>
+						<th>Type</th>
+						<th>Title</th>
+						<th>Valid date from</th>
+						<th>Valid date to</th>
+						<th>Registor</th>
+						<th>Registrated date time</th>
+					</tr>
 				</thead>
 				<tbody id="listInfo">
 				</tbody>
@@ -181,9 +151,7 @@
 		
 		insertForm.addEventListener('submit',insertHandler)
 		
-		window.addEventListener('load',listLoadHandler)
 		
-
         modal_overlay.addEventListener('click',closeModal)
 
 	

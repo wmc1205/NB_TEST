@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,9 +21,9 @@ public class NoticeTestService {
 	
 	private final NoticeTestMapper nbMapper;
 	
-	public List<NTSelectListVO> noticeSelectList() {
+	public List<NTSelectListVO> noticeSelectList(HashMap<String,Object> param) {
 		
-		return nbMapper.noticeSelectList();
+		return nbMapper.noticeSelectList(param);
 	}
 
 	public int insertOne(NTInsertVO paramDto) {
@@ -48,6 +49,11 @@ public class NoticeTestService {
 	public List<NTSelectListVO> getSearchList(NTSelectListVO dto) {
 		
 		return nbMapper.getSearchList(dto);
+	}
+
+	public int selectBoardCount(HashMap<String, Object> param) {
+		int boardCount = nbMapper.selectBoardCount(param);
+		return 0;
 	}
 	
 }
