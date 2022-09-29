@@ -22,12 +22,12 @@
 					</if>
 		<choose>
 					
-				<when test="validType != null and validType !='' and validType == '0'">
+				<when test='validType != null and validType !="" and validType=="0"'>
 				<![CDATA[
 		 		and (SYSDATE BETWEEN START_DT AND END_DT)
 		 		]]>
 				</when>
-				<when test="validType != null and validType !='' and validType == '1'">
+				<when test='validType != null and validType !="" and validType=="1"'>
 				<![CDATA[
 				and (NOT(sysdate BETWEEN START_DT AND END_DT))
 		 		]]>
@@ -50,11 +50,11 @@
 				idx
 				,type
 				,title
-				,start_dt 
-				,end_dt  
+				,TO_CHAR(TO_DATE(start_dt , 'YYYYMMDD'), 'YYYY-MM-DD') as startDt
+				,TO_CHAR(TO_DATE(end_dt , 'YYYYMMDD'), 'YYYY-MM-DD')  as endDt
 				,reg_user as regUser
-				,reg_dt  AS regDt
-				,reg_tm AS regTm
+				,TO_CHAR(TO_DATE(reg_dt, 'YYYYMMDD'),'YYYY-MM-DD')  AS regDt
+				,TO_CHAR(TO_DATE(reg_tm, 'HH24MISS'),'HH24:MM:DD')  AS regTm
 				
 			FROM 
 			tb_notice 	
@@ -72,18 +72,18 @@
 				</if>
 				<choose>
 					
-						<when test="validType != null and validType !='' and validType == '0'">
-						<![CDATA[
-				 		and (SYSDATE BETWEEN START_DT AND END_DT)
-				 		]]>
-						</when>
-						<when test="validType != null and validType !='' and validType == '1'">
-						<![CDATA[
-						and (NOT(sysdate BETWEEN START_DT AND END_DT))
-				 		]]>
-					</when>
-						
-				</choose>
+				<when test='validType != null and validType !="" and validType.equals("0")'>
+				<![CDATA[
+		 		and (SYSDATE BETWEEN START_DT AND END_DT)
+		 		]]>
+				</when>
+				<when test='validType != null and validType !="" and validType.equals("1")'>
+				<![CDATA[
+				and (NOT(sysdate BETWEEN START_DT AND END_DT))
+		 		]]>
+			</when>
+				
+		</choose>
 				<if test='reg_user != null and reg_user !=""'>
 					<![CDATA[
 					and reg_user like '%${reg_user}%'
@@ -101,8 +101,8 @@
 				,type
 				,title
 				,contents 
-				,start_dt
-				,end_dt
+				,TO_CHAR(TO_DATE(start_dt , 'YYYYMMDD'), 'YYYY-MM-DD') as startDt
+				,TO_CHAR(TO_DATE(end_dt , 'YYYYMMDD'), 'YYYY-MM-DD')  as endDt
 				,reg_user 
 				,reg_dt 
 				,reg_tm 

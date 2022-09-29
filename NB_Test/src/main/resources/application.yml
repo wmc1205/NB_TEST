@@ -1,6 +1,14 @@
+# default
+spring:
+  profiles:
+    active: "local"
 
+---
 
 spring:
+  config:
+    activate:
+      on-profile: "local"
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:oracle:thin:@121.166.140.188:1521:IWSPDB

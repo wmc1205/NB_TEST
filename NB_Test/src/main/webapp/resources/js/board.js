@@ -84,11 +84,22 @@ function openModal(event){
         
 }
 
+//update 시, 지정된 value값을 넣어주기 위해 String -> Date 변환
+//function formatting(date){
+//	var yyyy = date.slice(0,4)
+//	var mm = date.slice(4,6)
+//	var dd = date.slice(6,8)
+//	
+//	const res = yyyy + "-" + mm + "-" + dd
+//	var res = 
+//	return res;
+//}
 
 function openEditModal(idx){
 	closeModal()
 	const editModal = document.getElementById('editModal')
 	editModal.style.display = 'block'
+	
     const url = cpath + '/board/' + idx
     
     const opt = {
@@ -100,6 +111,12 @@ function openEditModal(idx){
     fetch(url,opt)
     .then(resp=>resp.json())
     .then(json=>{
+	var startDt = json.startDt
+	var endDt = json.endDt
+	var start_dt = new Date(startDt)
+	var end_dt = new Date(endDt)
+
+	
 	const editModalContent = document.getElementById('editModalContent')
 	editModalContent.innerHTML = ''
 	editModalContent.innerHTML += 
@@ -123,9 +140,9 @@ function openEditModal(idx){
 				</select>
 				</td>
 					<th>Valid date from</th>
-					<td><input type="date" name="start_dt"></td>
+					<td><input type="date" value="${json.startDt}" name="start_dt"></td>
 					<th>Valid date to</th>
-					<td><input type="date" name="end_dt"></td>
+					<td><input type="date" value="${json.endDt}" name="end_dt"></td>
 				</tr>
 				<tr>
 				<th>Registrator</th>
