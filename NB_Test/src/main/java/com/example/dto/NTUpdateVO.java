@@ -17,9 +17,9 @@ public class NTUpdateVO {
 	private BigInteger idx;
 	private String title;
 	private String contents;
-	private String labelType;
-	private Date startDt;
-	private Date endDt;
+	private String type;
+	private String start_dt;
+	private String end_dt;
 	//private String udt_user;
 	
 //	@Builder

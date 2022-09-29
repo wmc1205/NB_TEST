@@ -17,10 +17,9 @@ public class NTInsertVO {
 	private String title;
 	private String contents;
 	private String status;
-	private String labelType;
-	private String importance;
-	private Date startDt,startTm;
-	private Date endDt,endTm;
+	private String type;
+	private String start_dt,start_tm;
+	private String end_dt,end_tm;
 	private String reg_user;
 	private String reg_dt;
 	private String reg_tm;

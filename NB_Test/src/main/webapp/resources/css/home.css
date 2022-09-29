@@ -6,6 +6,7 @@ textarea{
    
     resize: none;
 }
+
 #menu_search > #menu_top {
 	display:flex;
 	justify-content: space-between;
@@ -19,9 +20,11 @@ textarea{
 	width:100%;
 	border: 2px solid #444444;
 	 border-collapse: collapse;
+	 position:absolute;
 }
 .root > .buttons {
 	float:right;
+	
 }
 #upper{
 	width:100%;
@@ -46,7 +49,7 @@ textarea{
 #addModal{
 		 display: none;
           position:relative;
-          width:100%;
+          width:75%;
           height:100%;
           z-index:1;
 }

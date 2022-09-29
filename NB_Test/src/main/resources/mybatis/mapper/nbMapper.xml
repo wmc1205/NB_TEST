@@ -8,11 +8,11 @@
 	<select id="selectBoardCount"
 	parameterType="hashmap"
 	resultType="int">
-		select count(*) from nb_test
+		select count(*) from tb_notice
 		where 1=1
-		<if test='labelType != null and labelType !=""'>
+		<if test='type != null and type !=""'>
 		<![CDATA[
-					and labelType = '${labelType}'
+					and type = '${type}'
 					]]>
 					</if>
 		<if test='title != null and title !=""'>
@@ -24,12 +24,12 @@
 					
 				<when test="validType != null and validType !='' and validType == '0'">
 				<![CDATA[
-		 		and (SYSDATE BETWEEN STARTDT AND ENDDT)
+		 		and (SYSDATE BETWEEN START_DT AND END_DT)
 		 		]]>
 				</when>
 				<when test="validType != null and validType !='' and validType == '1'">
 				<![CDATA[
-				and (NOT(sysdate BETWEEN STARTDT AND ENDDT))
+				and (NOT(sysdate BETWEEN START_DT AND END_DT))
 		 		]]>
 			</when>
 				
@@ -39,7 +39,7 @@
 					and reg_user like'%${reg_user}%'
 					]]>
 					</if>
-					and status='y'
+					and status='Y'
 	</select>
 	
 	
@@ -48,21 +48,21 @@
 		<![CDATA[
 			SELECT
 				idx
-				,labelType
+				,type
 				,title
-				,startDt
-				,endDt   
+				,start_dt 
+				,end_dt  
 				,reg_user as regUser
 				,reg_dt  AS regDt
 				,reg_tm AS regTm
 				
 			FROM 
-			NB_TEST 	
+			tb_notice 	
 				]]>
 				<where>
-				<if test='labelType != null and labelType !=""'>
+				<if test='type != null and type !=""'>
 					<![CDATA[
-					and labelType = #{labelType}
+					and type = #{type}
 					]]>
 				</if>
 				<if test='title != null and title !=""'>
@@ -74,12 +74,12 @@
 					
 						<when test="validType != null and validType !='' and validType == '0'">
 						<![CDATA[
-				 		and (SYSDATE BETWEEN STARTDT AND ENDDT)
+				 		and (SYSDATE BETWEEN START_DT AND END_DT)
 				 		]]>
 						</when>
 						<when test="validType != null and validType !='' and validType == '1'">
 						<![CDATA[
-						and (NOT(sysdate BETWEEN STARTDT AND ENDDT))
+						and (NOT(sysdate BETWEEN START_DT AND END_DT))
 				 		]]>
 					</when>
 						
@@ -89,7 +89,7 @@
 					and reg_user like '%${reg_user}%'
 					]]>
 				</if>
-				and status='y'
+				and status='Y'
 				</where>
 			    ORDER BY IDX DESC
 	</select>
@@ -98,16 +98,16 @@
 		
 		SELECT
 				idx
-				,labelType
+				,type
 				,title
 				,contents 
-				,startDt
-				,endDt 
+				,start_dt
+				,end_dt
 				,reg_user 
 				,reg_dt 
 				,reg_tm 
 			FROM 
-			NB_TEST 
+			TB_NOTICE 
 			where 1=1	
 			AND idx = #{idx}
 			ORDER BY IDX DESC
@@ -116,27 +116,29 @@
 	
 	<insert id="insertOne" parameterType="com.example.dto.NTInsertVO">
     <![CDATA[
-    	INSERT INTO NB_TEST(
-			 title
+    	INSERT INTO tb_notice(
+			 idx
+			 ,title
 			,contents  
 			,status
-			,labelType
-			,startDt 
+			,type
+			,start_dt 
 			,start_tm 
-			,endDt 
+			,end_dt 
 			,reg_user 
 			,end_tm 
 			,reg_dt
 			,reg_tm 
 		)VALUES
 		(
-			#{title}
+			TB_NOTICE_SEQ.NEXTVAL
+			,#{title}
 			,#{contents}
-			,'y'
-			,#{labelType}
-			,#{startDt}
+			,'Y'
+			,#{type}
+			,#{start_dt}
 			,'000000'
-			,#{endDt}
+			,#{end_dt}
 			,#{reg_user}
 			,'000000'
 			,TO_CHAR(SYSDATE, 'YYYYMMDD')
@@ -148,13 +150,13 @@
 	<update id="updateOne" parameterType="com.example.dto.NTUpdateVO">
     <![CDATA[
     	UPDATE 
-    		NB_TEST
+    		tb_notice
     	SET
     		 title =  #{title}
 			,contents = #{contents}
-    		,labelType = #{labelType}
-			,startDt = #{startDt}
-			,endDt = #{endDt}
+    		,type = #{type}
+			,start_dt = #{start_dt}
+			,end_dt = #{end_dt}
     		,udt_dt = TO_CHAR(SYSDATE, 'YYYYMMDD')
 			,udt_tm = TO_CHAR(SYSDATE, 'HH24MISS')		
     	where 1=1
@@ -165,9 +167,9 @@
 	<update id="deleteOne" parameterType="com.example.dto.NTDeleteVO">
     <![CDATA[
     	UPDATE 
-    		NB_TEST
+    		tb_notice
     	SET
-    		STATUS = 'n'
+    		STATUS = 'N'
     		,udt_dt = TO_CHAR(SYSDATE, 'YYYYMMDD')
 			,udt_tm = TO_CHAR(SYSDATE, 'HH24MISS')	
     	WHERE 1=1

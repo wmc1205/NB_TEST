@@ -17,9 +17,9 @@ public class NTSelectOneVO {
 	private BigInteger idx;
 	private String title;
 	private String contents;
-	private String labelType;
-	private Date startDt;
-	private Date endDt;
+	private String type;
+	private String startDt;
+	private String endDt;
 	private String regUser;
 	private String regDt;
 	private String regTm;

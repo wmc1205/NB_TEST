@@ -29,11 +29,11 @@ $(function(){
 				<th>Title</th>
 				<td><input type="search"  id="title" name="title" value="${param.title}"></td>
 				<th>Label</th>
-				<td><select name="labelType" id="labelType">
-					<option	${param.labelType =='' ? 'selected' : ''} 	value="">---</option>
-					<option ${param.labelType == 'A' ? 'selected':''} 	value="A">All</option>
-					<option ${param.labelType == 'C' ? 'selected':''}	value="C">Customer</option>
-					<option ${param.labelType == 'B' ? 'selected':''}	value="B">Bank</option>
+				<td><select name="type" id="type">
+					<option	${param.type =='' ? 'selected' : ''} 	value="">---</option>
+					<option ${param.type == 'A' ? 'selected':''} 	value="A">All</option>
+					<option ${param.type == 'C' ? 'selected':''}	value="C">Customer</option>
+					<option ${param.type == 'B' ? 'selected':''}	value="B">Bank</option>
 				</select></td>
 			</tr>
 			<tr>
@@ -97,16 +97,16 @@ $(function(){
 					</select>
 					</td>
 					<th>Valid date from</th>
-					<td><input type="date" name="startDt"></td>
+					<td><input type="date" name="start_dt"></td>
 					<th>Valid date to</th>
-					<td><input type="date" name="endDt"></td>
+					<td><input type="date" name="end_dt"></td>
 				</tr>
 				<tr>
 				<th>Registrator</th>
 				<td><input type="text" name="reg_user"></td>
 				<th>Label</th>
 				<td colspan="3">
-					<select name="labelType">
+					<select name="type">
 						<option value="A">all</option>
 						<option value="C">customer</option>
 						<option value="B">bank</option>

@@ -75,7 +75,7 @@ function openModal(event){
 	        <td>${json.endDt}</td>
 	    </tr>
         <tr><th>Registrator</th><td>${json.regUser}</td><th>Label</th>
-        <td colspan="5">${json.labelType}</td>
+        <td colspan="5">${json.type}</td>
         </tr>
         <tr><th>Content</th><td colspan="7">${json.contents}</td></table>
 		`
@@ -123,16 +123,16 @@ function openEditModal(idx){
 				</select>
 				</td>
 					<th>Valid date from</th>
-					<td><input type="date" name="startDt"></td>
+					<td><input type="date" name="start_dt"></td>
 					<th>Valid date to</th>
-					<td><input type="date" name="endDt"></td>
+					<td><input type="date" name="end_dt"></td>
 				</tr>
 				<tr>
 				<th>Registrator</th>
 				<td><input type="text" name="reg_user" value="${json.regUser}"></td>
 				<th>Label</th>
 				<td colspan="3">
-					<select name="labelType">
+					<select name="type">
 						<option value="A">All</option>
 						<option value="C">Customer</option>
 						<option value="B">Bank</option>
@@ -167,12 +167,12 @@ function getSearchList(){
 //					var endDt =  JSON.stringify(getData.endDt);
 					
 					html += "<tr class='item' data-idx='"+getData.idx+ "'>";
-					html += 	"<td class='labelType'>"+getData.labelType+"</td>";
+					html += 	"<td class='type'>"+getData.type+"</td>";
 					html += 	"<td onclick='openModal(event)' class='title'>" +getData.title +"</td>";
-					html += 	"<td class='startDt'>"+getData.startDt+"</td>";
-					html += 	"<td class='endDt'>"+getData.endDt+"</td>";
+					html += 	"<td class='start_dt'>"+getData.startDt+"</td>";
+					html += 	"<td class='end_dt'>"+getData.endDt+"</td>";
 					html += 	"<td class='reg_user'>"+getData.regUser+"</td>";
-					html +=		"<td class='regDt'>"+getData.regDt+" " +getData.regTm +"</td>";
+					html +=		"<td class='reg_dt'>"+getData.regDt+" " +getData.regTm +"</td>";
 					html += "</tr>";	
 				}
 				
@@ -180,6 +180,22 @@ function getSearchList(){
 				
 			}
 		})
+}
+
+function dateFormat(date){
+	var da = new Date(date);
+	var dd = da.getDate();
+			var mm = da.getMonth()+1; //January is 0!
+		
+			var yyyy = da.getFullYear();
+			if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm}
+			
+			yyyy = yyyy.toString();
+			mm = mm.toString();
+			dd = dd.toString();
+			
+			var s1 = yyyy+mm+dd;
+			return s1;
 }
 
 
@@ -190,7 +206,18 @@ function insertHandler(event){
 	const ob ={}
 	const formData = new FormData(event.target)
 	for(let key of formData.keys()){
-		ob[key] = formData.get(key)
+		if(key === 'start_dt'){
+			var date =formData.get(key)
+			var startDt = dateFormat(date)
+			ob[key] = startDt
+		}
+		else if(key === 'end_dt'){
+			var date =formData.get(key)
+			var endDt = dateFormat(date)
+			ob[key] = endDt
+		}
+		else{ob[key] = formData.get(key)
+			}
 	}
 	const url = cpath +'/board/insert'
 	const opt = {
@@ -216,9 +243,20 @@ function updateHandler(event){
 	const formData = new FormData(event.target)
 	console.log(this.idx.value)
 	for(let key of formData.keys()){
-		ob[key] = formData.get(key)
-		
+		if(key === 'start_dt'){
+			var date =formData.get(key)
+			var startDt = dateFormat(date)
+			ob[key] = startDt
+		}
+		else if(key === 'end_dt'){
+			var date =formData.get(key)
+			var endDt = dateFormat(date)
+			ob[key] = endDt
+		}
+		else{ob[key] = formData.get(key)
+			}
 	}
+	
 	const url = cpath +'/board/update/' + this.idx.value
 	const opt = {
 		method : 'POST',

@@ -16,10 +16,10 @@ import lombok.ToString;
 public class NTSelectListVO {
 	
 	private BigInteger idx;
-	private String labelType;
+	private String type;
 	private String title;
-	private Date startDt;
-	private Date endDt;
+	private String startDt;
+	private String endDt;
 	private String regUser;
 	private String regDt;
 	private String regTm;
