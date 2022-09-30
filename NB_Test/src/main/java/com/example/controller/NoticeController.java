@@ -98,7 +98,7 @@ public class NoticeController {
 		logger.info("삽입 성공");
 		return row;
 	}
-	
+	//주석
 	@GetMapping("/{idx}")
 	public NTSelectOneVO noticeSelectOne(@PathVariable int idx) {
 		return ntService.noticeSelectOne(idx);
