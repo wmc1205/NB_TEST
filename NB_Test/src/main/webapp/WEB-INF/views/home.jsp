@@ -71,9 +71,29 @@ $(function(){
 					</tr>
 				</thead>
 				<tbody id="listInfo">
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${fn:length(Alllist) > 0 }"> --%>
+<%-- 						<c:forEach items="${Alllist }" var="Alllist"> --%>
+<!-- 							<tr> -->
+<%-- 								<td>${Alllist.type }</td> --%>
+<%-- 								<td>${Alllist.title}</td> --%>
+<%-- 								<td>${Alllist.startDt }</td> --%>
+<%-- 								<td>${Alllist.endDt }</td> --%>
+<%-- 								<td>${Alllist.regUser }</td> --%>
+<%-- 								<td>${Alllist.regDt } ${list.regTm }</td> --%>
+<!-- 							</tr> -->
+<%-- 						</c:forEach> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:otherwise> --%>
+<!-- 							<tr> -->
+<!-- 								<td colspan="6">조회된 결과가 없습니다.</td> -->
+<!-- 							</tr> -->
+<%-- 						</c:otherwise> --%>
+<%-- 				</c:choose> --%>
 				</tbody>
 			</table>
 		</div>
+
 
 		<div id="addModal" class="hidden">
 			<div class="addModalContent">
@@ -136,6 +156,27 @@ $(function(){
 	    <div class="modal_content"></div>
         <div class="modal_overlay"></div>
 	</div>
+	
+	 <!--paginate -->
+            <div class="paginate">
+                <div class="paging">
+                    <a class="direction prev">
+                        &lt;&lt;
+                    </a>
+                    <a class="direction prev">
+                        &lt;
+                    </a>
+ 
+                    <a>1</a>
+                    <a class="direction next">
+                        &gt;
+                    </a>
+                    <a class="direction next">
+                        &gt;&gt;
+                    </a>
+                </div>
+            </div>
+    <!-- /paginate -->
 
 	<script>
 		//addModal open 
@@ -156,5 +197,6 @@ $(function(){
 
 	
 	</script>
+	
 </body>
 </html>

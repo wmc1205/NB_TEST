@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.dto.Criteria;
+
 import com.example.dto.NTInsertVO;
 import com.example.dto.NTSelectListVO;
 import com.example.dto.NTSelectOneVO;
 import com.example.dto.NTUpdateVO;
 import com.example.mapper.NoticeTestMapper;
+import com.example.paging.Pagination;
 
 import lombok.RequiredArgsConstructor;
 
@@ -46,12 +47,12 @@ public class NoticeTestService {
 		return nbMapper.deleteOne(idx);
 	}
 
-	public List<NTSelectListVO> getSearchList(NTSelectListVO dto) {
+	public List<NTSelectListVO> getSearchList(HashMap<String,Object> param) {
 		
-		return nbMapper.getSearchList(dto);
+		return nbMapper.getSearchList(param);
 	}
 
-	public int selectBoardCount(HashMap<String, Object> param) {
+	public int selectBoardCount(HashMap<String,Object> param) {
 		int boardCount = nbMapper.selectBoardCount(param);
 		return 0;
 	}

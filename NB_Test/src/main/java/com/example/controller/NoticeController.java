@@ -1,30 +1,35 @@
 package com.example.controller;
 
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+
+
 
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.dto.Criteria;
 import com.example.dto.NTInsertVO;
 import com.example.dto.NTSelectListVO;
 import com.example.dto.NTSelectOneVO;
 import com.example.dto.NTUpdateVO;
+import com.example.dto.PageVO;
 import com.example.paging.Pagination;
 import com.example.service.NoticeTestService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import ch.qos.logback.classic.Logger;
 import lombok.RequiredArgsConstructor;
@@ -39,10 +44,41 @@ public class NoticeController {
 	
 	
 	@GetMapping
-	public List<NTSelectListVO> selectList(@RequestParam HashMap<String,Object> param) throws Exception{
-		List<NTSelectListVO> list = ntService.noticeSelectList(param);
-		int boardCount = ntService.selectBoardCount(param);
-		return list;
+	public HashMap<String,Object> selectList( @RequestParam(value = "currentPage", required = false, defaultValue = "1") Integer currentPage,
+											@RequestParam HashMap<String,Object> param,
+											NTSelectListVO vo) throws Exception{
+			
+			HashMap<String, Object> result = new HashMap<String, Object>();
+		
+			int limit = 5;
+			int boardCount = ntService.selectBoardCount(param);
+			
+			//총 페이지 수
+			int maxpage = (boardCount + limit -1) / limit;
+			
+			//시작 페이지 수
+			int startpage = ((currentPage - 1) / 10) * 10 + 1;
+			
+			//마지막 페이지 수 
+			int endpage = startpage + 10 - 1;
+			
+			if(endpage > maxpage)
+				endpage = maxpage;
+			
+			vo.setLimit(limit);
+			vo.setStartpage(startpage);
+			vo.setPage(endpage);
+			vo.setPage(currentPage);
+			vo.setMaxpage(maxpage);
+			
+		   currentPage = currentPage == null? 1: currentPage;
+		  
+		   List<NTSelectListVO> list = ntService.noticeSelectList(param);
+		   result.put("list", list);
+		   result.put("page", currentPage);
+		   result.put("startpage", startpage);
+		   result.put("endpage", endpage);
+		   return result;
 	}
 	
 //	@GetMapping("/getSearchList")

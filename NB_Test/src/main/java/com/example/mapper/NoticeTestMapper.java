@@ -9,6 +9,7 @@ import com.example.dto.NTInsertVO;
 import com.example.dto.NTSelectListVO;
 import com.example.dto.NTSelectOneVO;
 import com.example.dto.NTUpdateVO;
+import com.example.paging.Pagination;
 
 @Mapper
 public interface NoticeTestMapper {
@@ -19,6 +20,13 @@ public interface NoticeTestMapper {
 	 */
 	//전체 조회
 	public List<NTSelectListVO> noticeSelectList(HashMap<String,Object> param);
+	
+	//데이터 검색 조회
+	public List<NTSelectListVO> getSearchList(HashMap<String,Object> param);
+	//게시물 갯수 조회
+	public int selectBoardCount(HashMap<String,Object> param);
+	//페이징
+	public List<NTSelectListVO> noticeSelectList(Pagination pagination);
 	//데이터 추가
 	public int insertOne(NTInsertVO paramDto); 
 	//데이터 개별 조회
@@ -27,9 +35,5 @@ public interface NoticeTestMapper {
 	public int updateOne(NTUpdateVO paramDto);
 	//데이터 개별 삭제
 	public int deleteOne(int idx);
-	//데이터 검색 조회
-	public List<NTSelectListVO> getSearchList(NTSelectListVO dto);
-	
-	public int selectBoardCount(HashMap<String, Object> param);
 
 }

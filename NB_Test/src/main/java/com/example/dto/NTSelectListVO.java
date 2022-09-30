@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class NTSelectListVO {
+public class NTSelectListVO extends PageVO{
 	
 	private BigInteger idx;
 	private String type;
@@ -23,6 +23,7 @@ public class NTSelectListVO {
 	private String regUser;
 	private String regDt;
 	private String regTm;
+	
 	
 
 }

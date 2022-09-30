@@ -45,9 +45,13 @@
 	
 	
 	<select id="noticeSelectList" parameterType="HashMap" resultType="com.example.dto.NTSelectListVO">
+	
 		<![CDATA[
+
+			
 			SELECT
-				idx
+				ROW_NUMBER() over(ORDER BY idx desc) AS row_num
+				,idx
 				,type
 				,title
 				,TO_CHAR(TO_DATE(start_dt , 'YYYYMMDD'), 'YYYY-MM-DD') as startDt
@@ -56,10 +60,9 @@
 				,TO_CHAR(TO_DATE(reg_dt, 'YYYYMMDD'),'YYYY-MM-DD')  AS regDt
 				,TO_CHAR(TO_DATE(reg_tm, 'HH24MISS'),'HH24:MM:DD')  AS regTm
 				
-			FROM 
-			tb_notice 	
+			FROM TB_NOTICE
 				]]>
-				<where>
+				where 1=1
 				<if test='type != null and type !=""'>
 					<![CDATA[
 					and type = #{type}
@@ -71,26 +74,26 @@
 					]]>
 				</if>
 				<choose>
-					
-				<when test='validType != null and validType !="" and validType.equals("0")'>
-				<![CDATA[
-		 		and (SYSDATE BETWEEN START_DT AND END_DT)
-		 		]]>
-				</when>
-				<when test='validType != null and validType !="" and validType.equals("1")'>
-				<![CDATA[
-				and (NOT(sysdate BETWEEN START_DT AND END_DT))
-		 		]]>
-			</when>
-				
-		</choose>
+					<when test='validType != null and validType !="" and validType.equals("0")'>
+					<![CDATA[
+			 		and (SYSDATE BETWEEN START_DT AND END_DT)
+			 		]]>
+					</when>
+					<when test='validType != null and validType !="" and validType.equals("1")'>
+					<![CDATA[
+					and (NOT(sysdate BETWEEN START_DT AND END_DT))
+			 		]]>
+					</when>	
+				</choose>
 				<if test='reg_user != null and reg_user !=""'>
 					<![CDATA[
 					and reg_user like '%${reg_user}%'
 					]]>
 				</if>
+				 <if test="firstRecordIndex !=null and lastRecordIndex != null">
+            	and (row_num BETWEEN #{firstRecordIndex} AND  #{lastRecordIndex})
+        		</if>
 				and status='Y'
-				</where>
 			    ORDER BY IDX DESC
 	</select>
 	

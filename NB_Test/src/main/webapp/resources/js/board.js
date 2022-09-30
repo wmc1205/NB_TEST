@@ -176,8 +176,15 @@ function getSearchList(){
 			type:'GET',
 			url: cpath + '/board',
 			data : $("form[name=searchForm]").serialize(),
-			success : function(data){				
+			success : function(data){	
+					
 				var html = "";
+				var page = data.page;
+				var startpage = data.startpage;
+				var endpage = data.endpage;
+			
+				
+				
 				for(var i=0; i<data.length; i++){
 					var getData = data[i];
 //					var startDt = JSON.stringify(getData.startDt);
@@ -192,10 +199,18 @@ function getSearchList(){
 					html +=		"<td class='reg_dt'>"+getData.regDt+" " +getData.regTm +"</td>";
 					html += "</tr>";	
 				}
+				for(var num=startpage; num <= endpage; num++){
+					if(num == page){
+						html += '<a href="#" onclick="getSearchList(' + getData.idx + ', ' + num + '); return false;" class="page-btn">' + num + '</a>';
+					  } else {
+                      html += '<a href="#" onclick="getSearchList(' + getData.idx + ', ' + num + '); return false;" class="page-btn">' + num + '</a>';
+                 }
+              }
 				
 				$("#boardTB").find("tbody").html(html);
 				
 			}
+			
 		})
 }
 
@@ -312,37 +327,6 @@ function deleteHandler(idx){
 
 }
 
-
-//function searchListHandler(){
-//	const searchForm = document.querySelector('#searchForm');
-//	const data = new FormData(searchForm);
-//	const serializedFormData = serialize(data);
-//	console.log(JSON.stringify(serializedFormData));
-//	
-//	listLoadHandler();
-//	
-//}
-//function serialize(rawData){
-//	let rtnData = {};
-//	for (let [key, value] of rawData) {
-//		let sel = document.querySelectorAll("[name=" + key + "]");
-//	
-//		// Array Values
-//		if (sel.length > 1) {
-//			if (rtnData[key] === undefined) {
-//				rtnData[key] = [];				
-//			}
-//			rtnData[key].push(value);
-//		} 
-//		// Other 
-//		else {
-//        	rtnData[key] = value;
-//		}
-//	}
-//	
-//	return rtnData;
-//
-//}
 
 
 
