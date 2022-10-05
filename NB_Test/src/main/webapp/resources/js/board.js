@@ -8,29 +8,6 @@ function closeModal(){
 }
 
 
-//	$.ajax({
-//			type:'GET',
-//			url: cpath + '/board',
-//			data : $("form[name=searchForm]").serialize(),
-//			success : function(data){				
-//				var html = "";
-//				for(var i=0; i<data.length; i++){
-//					var getData = data[i];
-//					
-//					html += "<tr data-idx='"+getData.idx+"'>";
-//					html += 	"<td>"+getData.labelType+"</td>";
-//					html += 	"<td onclick='openModal()'>" +getData.title +"</td>";
-//					html += 	"<td>"+getData.startDt+"</td>";
-//					html += 	"<td>"+getData.endDt+"</td>";
-//					html += 	"<td>"+getData.regUser+"</td>";
-//					html +=		"<td>"+getData.regDt+" " +getData.regTm +"</td>";
-//					html += "</tr>";	
-//				}
-//				
-//				$("#boardTB").find("tbody").html(html);
-//				
-//			}
-//		})
 
 
 function openModal(event){
@@ -171,24 +148,39 @@ function openEditModal(idx){
 }
 
 //검색기능
-function getSearchList(){
+function getSearchList(page){
+	
+	var pageSize = 10;
+	var totalPages = 0;
+	var curPage = page;
+	$("input[name='currentPage']").val(curPage);
+	
+	var params = $('form[name=searchForm]').serialize()
 	$.ajax({
-			type:'GET',
-			url: cpath + '/board',
-			data : $("form[name=searchForm]").serialize(),
-			success : function(data){	
-					
-				var html = "";
-				var page = data.page;
-				var startpage = data.startpage;
-				var endpage = data.endpage;
 			
+			type:'GET',
+			url: cpath + '/board' ,
+			data : 
+				params,
+				"listSize" : listSize,
+				"page" : page,
+			success : function(data){	
 				
+				var html = ''
+				var block = ''
+				const pagination = data['pagination'];
+//				var page = data.pagination.page
+//				var begin = data.pagination.begin
+//				var end = data.pagination.end
+//				var prev = data.pagination.prev
+//				var next = data.pagination.next
+					//console.log(pagination);
 				
-				for(var i=0; i<data.length; i++){
-					var getData = data[i];
-//					var startDt = JSON.stringify(getData.startDt);
-//					var endDt =  JSON.stringify(getData.endDt);
+					console.log(data.list)
+					
+				
+				for(var i=0; i<data.list.length; i++){
+					var getData = data.list[i];
 					
 					html += "<tr class='item' data-idx='"+getData.idx+ "'>";
 					html += 	"<td class='type'>"+getData.type+"</td>";
@@ -199,20 +191,46 @@ function getSearchList(){
 					html +=		"<td class='reg_dt'>"+getData.regDt+" " +getData.regTm +"</td>";
 					html += "</tr>";	
 				}
-				for(var num=startpage; num <= endpage; num++){
-					if(num == page){
-						html += '<a href="#" onclick="getSearchList(' + getData.idx + ', ' + num + '); return false;" class="page-btn">' + num + '</a>';
-					  } else {
-                      html += '<a href="#" onclick="getSearchList(' + getData.idx + ', ' + num + '); return false;" class="page-btn">' + num + '</a>';
-                 }
-              }
+				//이전 버튼 활성화 여부 결정
+				if(pagination['begin'] === 1
+					&&  pagination['end'] === 1){
+						html += "<td colspan='6'>게시글이 존재하지 않습니다.</td>";
+					}
+				//번호 표시 부분
 				
-				$("#boardTB").find("tbody").html(html);
 				
+				if (pagination['prev'] == false) {
+							block += "<li class='page-item'><a class='page-link' href='javascript:getSearchList("
+									+ (pagination['begin'] )
+									+ ")'> < </a></li>";
+						} else {
+							block += "<li class='page-item disabled'><a class='page-link'> < </a></li>";
+						}
+					for (var i = pagination['begin']; i < pagination['end']; i++) {
+							if (page !== i) {
+								block += "<li class='page-item'><a class='page-link' href='javascript:getSearchList("
+										+ i+1 + ")'>" + (i+1) + "</a></li>";
+							} else {
+								block += "<li class='page-item disabled'><a class='page-link'>"
+										+ (i) + "</a></li>";
+							}
+						}
+						if (pagination['next'] == false) {
+							block += "<li class='page-item'><a class='page-link' href='javascript:getSearchList("
+									+ (pagination['end'])
+									+ ")'> > </a></li>";
+						} else {
+							block += "<li class='page-item disabled'><a class='page-link'> > </a></li>";
+						}
+			
+				
+				$("#boardTB").find("#listInfo").html(html);
+				$("#paging").find('#paginationBox').html(block);
+				window.scrollTo(0,0);
 			}
 			
-		})
-}
+		});
+	}
 
 function dateFormat(date){
 	var da = new Date(date);

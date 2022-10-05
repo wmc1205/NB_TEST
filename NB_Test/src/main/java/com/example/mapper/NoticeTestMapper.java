@@ -21,12 +21,9 @@ public interface NoticeTestMapper {
 	//전체 조회
 	public List<NTSelectListVO> noticeSelectList(HashMap<String,Object> param);
 	
-	//데이터 검색 조회
-	public List<NTSelectListVO> getSearchList(HashMap<String,Object> param);
 	//게시물 갯수 조회
 	public int selectBoardCount(HashMap<String,Object> param);
-	//페이징
-	public List<NTSelectListVO> noticeSelectList(Pagination pagination);
+
 	//데이터 추가
 	public int insertOne(NTInsertVO paramDto); 
 	//데이터 개별 조회

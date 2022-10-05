@@ -8,7 +8,9 @@
 	<select id="selectBoardCount"
 	parameterType="hashmap"
 	resultType="int">
-		select count(*) from tb_notice
+		select 
+		count(*) as listCnt
+		 from tb_notice
 		where 1=1
 		<if test='type != null and type !=""'>
 		<![CDATA[
@@ -31,15 +33,16 @@
 				<![CDATA[
 				and (NOT(sysdate BETWEEN START_DT AND END_DT))
 		 		]]>
-			</when>
-				
+			</when>		
 		</choose>
 		<if test='reg_user != null and reg_user !=""'>
 		<![CDATA[
 					and reg_user like'%${reg_user}%'
 					]]>
 					</if>
-					and status='Y'
+		
+					
+			 	 
 	</select>
 	
 	
@@ -50,7 +53,12 @@
 
 			
 			SELECT
-				ROW_NUMBER() over(ORDER BY idx desc) AS row_num
+				TBL.*
+				
+			FROM (
+			 
+				SELECT 
+				ROW_NUMBER() OVER (ORDER BY IDX DESC) NUM
 				,idx
 				,type
 				,title
@@ -59,10 +67,13 @@
 				,reg_user as regUser
 				,TO_CHAR(TO_DATE(reg_dt, 'YYYYMMDD'),'YYYY-MM-DD')  AS regDt
 				,TO_CHAR(TO_DATE(reg_tm, 'HH24MISS'),'HH24:MM:DD')  AS regTm
-				
-			FROM TB_NOTICE
-				]]>
+				from TB_NOTICE
 				where 1=1
+				and status='Y'
+				and rownum <= #{pagination.page}*#{pagination.listSize}
+				)TBL
+				where 1=1
+				]]>
 				<if test='type != null and type !=""'>
 					<![CDATA[
 					and type = #{type}
@@ -76,13 +87,13 @@
 				<choose>
 					<when test='validType != null and validType !="" and validType.equals("0")'>
 					<![CDATA[
-			 		and (SYSDATE BETWEEN START_DT AND END_DT)
-			 		]]>
+ 			 		and (SYSDATE BETWEEN STARTDT AND ENDDT) 
+ 			 		]]> 
 					</when>
 					<when test='validType != null and validType !="" and validType.equals("1")'>
 					<![CDATA[
-					and (NOT(sysdate BETWEEN START_DT AND END_DT))
-			 		]]>
+					and (NOT(sysdate BETWEEN STARTDT AND ENDDT)) 
+			 		]]> 
 					</when>	
 				</choose>
 				<if test='reg_user != null and reg_user !=""'>
@@ -90,11 +101,11 @@
 					and reg_user like '%${reg_user}%'
 					]]>
 				</if>
-				 <if test="firstRecordIndex !=null and lastRecordIndex != null">
-            	and (row_num BETWEEN #{firstRecordIndex} AND  #{lastRecordIndex})
-        		</if>
-				and status='Y'
+				<![CDATA[
+				and num >(#{pagination.page} -1)*#{pagination.listSize} 
+			    ]]>
 			    ORDER BY IDX DESC
+			   
 	</select>
 	
 	<select id="noticeSelectOne" resultType="com.example.dto.NTSelectOneVO">

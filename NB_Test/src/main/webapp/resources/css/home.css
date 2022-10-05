@@ -20,8 +20,10 @@ textarea{
 	width:100%;
 	border: 2px solid #444444;
 	 border-collapse: collapse;
-	 position:absolute;
+	
 }
+
+
 .root > .buttons {
 	float:right;
 	
@@ -48,7 +50,7 @@ textarea{
 }
 #addModal{
 		 display: none;
-          position:relative;
+          position:fixed;
           width:75%;
           height:100%;
           z-index:1;
@@ -71,7 +73,7 @@ textarea{
 }
 #selectInfoModal{
 			  margin:auto;
-              position:relative;
+              position:fixed;
               width:75%;
               z-index:2;
 }
@@ -124,89 +126,48 @@ position:fixed;
           background:rgba(0, 0, 0, 0.5);
           z-index:-2;
 }
-
-
-/* paginate */
-.paginate {
-    padding: 0;
-    line-height: normal;
-    text-align: center;
-    position: relative;
-    margin: 20px 0 20px 0;
-    z-index: 1;
+#paging {
+	border :1px solid black;
+	position:sticky;
+	font-size: 15px;
+	text-decoration: none;
+	display:flex;
+	justify-content: space-evenly;
 }
- 
-.paginate .paging {
-    text-align: center;
+#paging > a {
+	font-size: 20px;
+	text-decoration: none;
+	
+	
 }
- 
-.paginate .paging a, .paginate .paging strong {
-    margin: 0;
-    padding: 0;
-    width: 20px;
-    height: 24px;
-    line-height: 24px;
+ul {
     text-align: center;
-    color: #848484;
     display: inline-block;
-    vertical-align: middle;
+    border: 1px solid #ccc;
+    border-right: 0;
+}
+
+ul li {
     text-align: center;
-    font-size: 12px;
+    float: left;
+    list-style: none;
+    text-decoration: none;
 }
- 
-.paginate .paging a:hover, .paginate .paging strong {
-    color: #DAA520;
-    font-weight: 600;
-    font-weight: normal;
+
+ul li a {
+    display: block;
+    font-size: 18px;
+    padding: 9px 12px;
+    border-right: solid 1px #ccc;
+    box-sizing: border-box;
 }
- 
-.paginate .paging .direction {
-    z-index: 3;
-    vertical-align: middle;
-    background-color: none;
-    margin: 0 2px;
-    border: 1px solid #777;
-    border-radius: 2px;
-    width: 28px;
+
+ul li.on {
+    background: #eda712;
 }
- 
-.paginate .paging .direction:hover {
-    border: 1px solid #C40639;
+
+ul li.on a {
+    color: #fff;
 }
- 
-.paginate .paging .direction.prev {
-    margin-right: 4px;
-}
- 
-.paginate .paging .direction.next {
-    margin-left: 4px;
-    cursor: pointer;
-}
- 
-.paginate .paging img {
-    vertical-align: middle;
-}
- 
-.paginate .right {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
- 
-.bottom-left, .bottom-right {
-    position: relative;
-    z-index: 5;
-}
- 
-.paginate ~ .bottom {
-    margin-top: -50px;
-}
- 
- 
-.bottom select {
-    background: transparent;
-    color: #aaa;
-    cursor: pointer;
-}
- 
+
  

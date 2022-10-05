@@ -3,6 +3,8 @@ package com.example.dto;
 import java.math.BigInteger;
 import java.sql.Date;
 
+import com.example.paging.Pagination;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-public class NTSelectListVO extends PageVO{
+public class NTSelectListVO {
 	
 	private BigInteger idx;
 	private String type;

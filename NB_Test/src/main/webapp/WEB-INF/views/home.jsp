@@ -11,9 +11,13 @@
 <script>
 $(function(){
 	
-	getSearchList();
+	getSearchList(1);
 	
 });
+
+$("#listSize").change(function(){
+	getSearchList(1);
+})
 
 
 </script>
@@ -47,7 +51,12 @@ $(function(){
 				<th>Registor</th>
 				<td><input type="search" name="reg_user" id="reg_user" value="${param.regUser }" placeholder="registor"></td>
 				
-				<td colspan="2"><input type="button" onclick="getSearchList()" value="searchBtn"></td>
+				<td colspan="2">
+				<input type="button" onclick="getSearchList()" value="searchBtn">
+				
+				</td>
+				
+
 			</tr>
 		</table>
 		</form>
@@ -58,7 +67,7 @@ $(function(){
 			
 		<br><br>
 		
-		<div>
+		<div id="TBroot">
 			<table id="boardTB">
 				<thead>
 					<tr>
@@ -71,29 +80,26 @@ $(function(){
 					</tr>
 				</thead>
 				<tbody id="listInfo">
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${fn:length(Alllist) > 0 }"> --%>
-<%-- 						<c:forEach items="${Alllist }" var="Alllist"> --%>
-<!-- 							<tr> -->
-<%-- 								<td>${Alllist.type }</td> --%>
-<%-- 								<td>${Alllist.title}</td> --%>
-<%-- 								<td>${Alllist.startDt }</td> --%>
-<%-- 								<td>${Alllist.endDt }</td> --%>
-<%-- 								<td>${Alllist.regUser }</td> --%>
-<%-- 								<td>${Alllist.regDt } ${list.regTm }</td> --%>
-<!-- 							</tr> -->
-<%-- 						</c:forEach> --%>
-<%-- 						</c:when> --%>
-<%-- 						<c:otherwise> --%>
-<!-- 							<tr> -->
-<!-- 								<td colspan="6">조회된 결과가 없습니다.</td> -->
-<!-- 							</tr> -->
-<%-- 						</c:otherwise> --%>
-<%-- 				</c:choose> --%>
 				</tbody>
 			</table>
+		
+			
+	<div id="paging">
+		<ul id="paginationBox" class="pagination">
+		</ul>
+	</div>
+	</div>
+	<!-- 페이지 목록 갯수   -->
+		<div class="form-group row justify-content-center">
+			<p>게시판 목록 갯수</p>
+			<div class="w100" style="padding-right: 10px">
+				<select id="listSize" class="form-control form-control-sm">
+					<option value="10">10 개</option>
+					<option value="15">15 개</option>
+					<option value="20">20 개</option>
+				</select>
+			</div>
 		</div>
-
 
 		<div id="addModal" class="hidden">
 			<div class="addModalContent">
@@ -157,27 +163,8 @@ $(function(){
         <div class="modal_overlay"></div>
 	</div>
 	
-	 <!--paginate -->
-            <div class="paginate">
-                <div class="paging">
-                    <a class="direction prev">
-                        &lt;&lt;
-                    </a>
-                    <a class="direction prev">
-                        &lt;
-                    </a>
- 
-                    <a>1</a>
-                    <a class="direction next">
-                        &gt;
-                    </a>
-                    <a class="direction next">
-                        &gt;&gt;
-                    </a>
-                </div>
-            </div>
-    <!-- /paginate -->
-
+	
+	
 	<script>
 		//addModal open 
 		document.getElementById('addBtn').onclick = function(){

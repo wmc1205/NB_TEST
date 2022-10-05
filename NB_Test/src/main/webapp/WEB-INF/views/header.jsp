@@ -17,7 +17,10 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${cpath }/resources/css/home.css">
 <script src="${cpath}/resources/js/board.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 
 
 </head>

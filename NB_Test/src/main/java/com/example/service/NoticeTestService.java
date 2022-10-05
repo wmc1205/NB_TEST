@@ -26,6 +26,9 @@ public class NoticeTestService {
 		
 		return nbMapper.noticeSelectList(param);
 	}
+//	public List<NTSelectListVO> noticeSelectList(Pagination pagination) throws Exception{
+//		return nbMapper.noticeSelectList(pagination);
+//	}
 
 	public int insertOne(NTInsertVO paramDto) {
 		
@@ -47,14 +50,9 @@ public class NoticeTestService {
 		return nbMapper.deleteOne(idx);
 	}
 
-	public List<NTSelectListVO> getSearchList(HashMap<String,Object> param) {
-		
-		return nbMapper.getSearchList(param);
-	}
-
 	public int selectBoardCount(HashMap<String,Object> param) {
 		int boardCount = nbMapper.selectBoardCount(param);
-		return 0;
+		return boardCount;
 	}
 	
 }
